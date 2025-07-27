@@ -1,18 +1,19 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-const MONGODB_URI = 'mongodb+srv://admin:admin123@actividad9.mrktgg6.mongodb.net/registro_usuarios';
+const uri = process.env.MONGODB_URI;
 
-const conectarDB = async () => {
-    try {
-        await mongoose.connect(MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        console.log('Conexión exitosa a MongoDB Atlas');
-    } catch (error) {
-        console.error('Error al conectar a MongoDB:', error);
-        process.exit(1);
-    }
+const connectDB = async () => {
+  try {
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('Conectado a MongoDB Atlas');
+  } catch (error) {
+    console.error('Error al conectar con MongoDB ', error);
+    process.exit(1); // Salir si falla la conexión
+  }
 };
 
-module.exports = conectarDB;
+module.exports = connectDB;
